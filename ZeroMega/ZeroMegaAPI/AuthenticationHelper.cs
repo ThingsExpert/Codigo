@@ -23,8 +23,6 @@ namespace ZeroMegaAPI
 {
     internal class AuthenticationHelper
     {
-        public static string TokenForUser;
-
         /// <summary>
         /// Async task to acquire token for Application.
         /// </summary>

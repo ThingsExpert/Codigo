@@ -5,23 +5,26 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web.Http;
+using ZeroMegaAPI.Models;
+using ZeroMegaAPI.Repositories;
 
 namespace ZeroMegaAPI.Controllers
 {
     [Authorize]
     public class ThingsController : ApiController
     {
-        private string _account = string.Empty;
-        //private PositionRepository _repository = new PositionRepository();
+        private int _account;
+        private PositionRepository _repository = new PositionRepository();
 
         public ThingsController()
         {
-
+            
 
         }
 
-        public string Get()
+        public async Task<IEnumerable<ThingPosition>> Get()
         {
             var identity = (ClaimsIdentity)User.Identity;
             IEnumerable<Claim> claims = identity.Claims;
@@ -29,12 +32,14 @@ namespace ZeroMegaAPI.Controllers
 
             _account = GetAccountId(user);
 
-            return _account;
+            var data = await _repository.GetAllThingsPositions(_account);
+
+            return data;
         }
 
         string extensionName = "extension_091c133eb3934bf9900259a2814b1cad_AccountNumber";
 
-        private string GetAccountId(string UserPrincipalName)
+        private int GetAccountId(string UserPrincipalName)
         {
             ActiveDirectoryClient activeDirectoryClient;
             activeDirectoryClient = AuthenticationHelper.GetActiveDirectoryClientAsApplication();
@@ -48,7 +53,7 @@ namespace ZeroMegaAPI.Controllers
                     .Where(user => user.UserPrincipalName.Equals(searchString))
                     .ExecuteAsync().Result.CurrentPage.ToList();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
@@ -66,21 +71,21 @@ namespace ZeroMegaAPI.Controllers
             appObject = (Application)retrievedApps.First();
 
 
-            object extendedProperty = null;
+            object value = null;
             try
             {
                 if (retrievedUser != null && retrievedUser.ObjectId != null)
                 {
                     IReadOnlyDictionary<string, object> extendedProperties = retrievedUser.GetExtendedProperties();
-                    extendedProperty = extendedProperties[extensionName];
+                    value = extendedProperties[extensionName];
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
 
-            return (string)extendedProperty;
+            return int.Parse(value.ToString());
         }
     }
 }
