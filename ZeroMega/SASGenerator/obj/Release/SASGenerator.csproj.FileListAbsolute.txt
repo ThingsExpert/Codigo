@@ -1,8 +1,0 @@
-C:\Users\t-allta\Desktop\ZeroMega\ZeroMega\SASGenerator\bin\Release\SASGenerator.exe.config
-C:\Users\t-allta\Desktop\ZeroMega\ZeroMega\SASGenerator\bin\Release\SASGenerator.exe
-C:\Users\t-allta\Desktop\ZeroMega\ZeroMega\SASGenerator\bin\Release\SASGenerator.pdb
-C:\Users\t-allta\Desktop\ZeroMega\ZeroMega\SASGenerator\bin\Release\Microsoft.ServiceBus.dll
-C:\Users\t-allta\Desktop\ZeroMega\ZeroMega\SASGenerator\bin\Release\Microsoft.ServiceBus.xml
-C:\Users\t-allta\Desktop\ZeroMega\ZeroMega\SASGenerator\obj\Release\SASGenerator.csprojResolveAssemblyReference.cache
-C:\Users\t-allta\Desktop\ZeroMega\ZeroMega\SASGenerator\obj\Release\SASGenerator.exe
-C:\Users\t-allta\Desktop\ZeroMega\ZeroMega\SASGenerator\obj\Release\SASGenerator.pdb
