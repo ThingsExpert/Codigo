@@ -14,7 +14,7 @@
 // places, or events is intended or should be inferred.
 //----------------------------------------------------------------------------------
 
-namespace GraphConsole
+namespace ZeroMegaAPI
 {
     internal class Constants
     {

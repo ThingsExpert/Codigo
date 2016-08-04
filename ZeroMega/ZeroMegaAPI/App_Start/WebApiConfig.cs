@@ -14,10 +14,16 @@ namespace ZeroMegaAPI
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{thingId}/{eventId}",
+            //    defaults: new { thingId = RouteParameter.Optional, eventId = RouteParameter.Optional }
+            //);
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{thingId}/{eventId}",
-                defaults: new { thingId = RouteParameter.Optional, eventId = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
         }
     }
