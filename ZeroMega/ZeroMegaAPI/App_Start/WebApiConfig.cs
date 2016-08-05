@@ -16,8 +16,8 @@ namespace ZeroMegaAPI
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{thingId}/{eventId}",
-                defaults: new { thingId = RouteParameter.Optional, eventId = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{thingId}/{datetime}",
+                defaults: new { thingId = RouteParameter.Optional, datetime = RouteParameter.Optional }
             );
 
         }

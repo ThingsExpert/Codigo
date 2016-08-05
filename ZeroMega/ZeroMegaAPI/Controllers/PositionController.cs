@@ -36,13 +36,13 @@ namespace ZeroMegaAPI.Controllers
             return await _repository.GetThingPositions(_account, thingId);
         }
 
-        //api/Position/thingId/eventId
-        public async Task<ThingPosition> Get(string thingId, Guid eventId)
+        //api/Position/thingId/datetime
+        public async Task<ThingPosition> Get(string thingId, string datetime)
         {
             var user = getUPN();
             _account = GetAccountId(user);
 
-            return await _repository.GetThingPosition(_account, thingId, eventId);
+            return await _repository.GetThingPosition(_account, thingId, datetime);
         }
 
         //api/Position/thingId?lowerLimit=yyyy-MM-dd

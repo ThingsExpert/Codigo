@@ -8,14 +8,12 @@ namespace ZeroMegaAPI.Models
 {
     public class ThingPosition
     {
-        public string ThingID { get; set; }
+        public string IDThing { get; set; }
 
-        public Guid EventID { get; set; }
+        public DateTime DateTimeEvent { get; set; }
 
-        public DateTime TimeStamp { get; set; }
+        public long Latitude { get; set; }
 
-        public string Latitude { get; set; }
-
-        public string Longitude { get; set; }
+        public long Longitude { get; set; }
     }
 }

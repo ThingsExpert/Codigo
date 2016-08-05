@@ -12,18 +12,21 @@ namespace ZeroMegaAPI.Models
         public ThingEntity() { }
 
         // Define the PK and RK
-        public ThingEntity(string id_thing, string id_event)
+        public ThingEntity(string id_thing, string datetime_event)
         {
             this.PartitionKey = id_thing;
-            this.RowKey = id_event;
+            this.RowKey = datetime_event;
         }
 
-        //public DateTime TimeStamp { get; set; }
 
-        public int account { get; set; }
+        public string id_thing { get; set; }
 
-        public string latitude { get; set; }
+        public DateTime datetime_event { get; set; }
 
-        public string longitude { get; set; }
+        public string account { get; set; }
+
+        public long latitude { get; set; }
+
+        public long longitude { get; set; }
     }
 }

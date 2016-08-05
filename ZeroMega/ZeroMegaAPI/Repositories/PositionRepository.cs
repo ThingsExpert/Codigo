@@ -38,7 +38,7 @@ namespace ZeroMegaAPI.Repositories
                 {
                     TableQuerySegment<ThingEntity> segment = await _table.ExecuteQuerySegmentedAsync(new TableQuery<ThingEntity>()
                     {
-                        FilterString = "account eq " + accountId
+                        FilterString = "account eq '" + accountId + "'"
                     }, token);
 
                     token = segment.ContinuationToken;
@@ -46,11 +46,10 @@ namespace ZeroMegaAPI.Repositories
                                  in segment
                                  select new ThingPosition()
                                  {
-                                     ThingID = thing.PartitionKey,
-                                     EventID = Guid.Parse(thing.RowKey),
+                                     IDThing = thing.id_thing,
+                                     DateTimeEvent = thing.datetime_event,
                                      Latitude = thing.latitude,
                                      Longitude = thing.longitude,
-                                     TimeStamp = DateTime.Parse(thing.Timestamp.ToString())
                                  };
                     thingsPositions.AddRange(result);
                 }
@@ -64,19 +63,18 @@ namespace ZeroMegaAPI.Repositories
             return thingsPositions;
         }
 
-        public async Task<ThingPosition> GetThingPosition(int accountId, string thingId, Guid eventId)
+        public async Task<ThingPosition> GetThingPosition(int accountId, string thingId, string datetime)
         {
-            TableOperation retrieveOperation = TableOperation.Retrieve<ThingEntity>(thingId, eventId.ToString().ToUpper());
+            TableOperation retrieveOperation = TableOperation.Retrieve<ThingEntity>(thingId, datetime);
             TableResult result = await _table.ExecuteAsync(retrieveOperation);
             ThingEntity thing = result.Result as ThingEntity;
 
             return new ThingPosition()
             {
-                ThingID = thing.PartitionKey,
-                EventID = Guid.Parse(thing.RowKey),
+                IDThing = thing.id_thing,
+                DateTimeEvent = thing.datetime_event,
                 Latitude = thing.latitude,
                 Longitude = thing.longitude,
-                TimeStamp = DateTime.Parse(thing.Timestamp.ToString())
             };
         }
 
@@ -90,7 +88,7 @@ namespace ZeroMegaAPI.Repositories
                 {
                     TableQuerySegment<ThingEntity> segment = await _table.ExecuteQuerySegmentedAsync(new TableQuery<ThingEntity>()
                     {
-                        FilterString = "account eq " + accountId + " and id_thing eq '" + thingId + "'"
+                        FilterString = "account eq '" + accountId + "' and id_thing eq '" + thingId + "'"
                     }, token);
 
                     token = segment.ContinuationToken;
@@ -98,11 +96,10 @@ namespace ZeroMegaAPI.Repositories
                                  in segment
                                  select new ThingPosition()
                                  {
-                                     ThingID = thing.PartitionKey,
-                                     EventID = Guid.Parse(thing.RowKey),
+                                     IDThing = thing.id_thing,
+                                     DateTimeEvent = thing.datetime_event,
                                      Latitude = thing.latitude,
                                      Longitude = thing.longitude,
-                                     TimeStamp = DateTime.Parse(thing.Timestamp.ToString())
                                  };
                     thingsPositions.AddRange(result);
                 }
@@ -126,7 +123,7 @@ namespace ZeroMegaAPI.Repositories
                 {
                     TableQuerySegment<ThingEntity> segment = await _table.ExecuteQuerySegmentedAsync(new TableQuery<ThingEntity>()
                     {
-                        FilterString = "(account eq " + accountId + ") and (id_thing eq '" + thingId + "') and (Timestamp ge datetime'" + lowerLimit.ToString("yyyy-MM-dd") + "')"
+                        FilterString = "(account eq '" + accountId + "') and (id_thing eq '" + thingId + "') and (Timestamp ge datetime'" + lowerLimit.ToString("yyyy-MM-dd") + "')"
                     }, token);
 
                     token = segment.ContinuationToken;
@@ -134,11 +131,10 @@ namespace ZeroMegaAPI.Repositories
                                  in segment
                                  select new ThingPosition()
                                  {
-                                     ThingID = thing.PartitionKey,
-                                     EventID = Guid.Parse(thing.RowKey),
+                                     IDThing = thing.id_thing,
+                                     DateTimeEvent = thing.datetime_event,
                                      Latitude = thing.latitude,
                                      Longitude = thing.longitude,
-                                     TimeStamp = DateTime.Parse(thing.Timestamp.ToString())
                                  };
                     thingsPositions.AddRange(result);
                 }
@@ -162,7 +158,7 @@ namespace ZeroMegaAPI.Repositories
                 {
                     TableQuerySegment<ThingEntity> segment = await _table.ExecuteQuerySegmentedAsync(new TableQuery<ThingEntity>()
                     {
-                        FilterString = "(account eq " + accountId + ") and (id_thing eq '" + thingId + "') and (Timestamp ge datetime'" + lowerLimit.ToString("yyyy-MM-dd") + "') and (Timestamp le datetime'" + upperLimit.ToString("yyyy-MM-dd") + "')"
+                        FilterString = "(account eq '" + accountId + "') and (id_thing eq '" + thingId + "') and (Timestamp ge datetime'" + lowerLimit.ToString("yyyy-MM-dd") + "') and (Timestamp le datetime'" + upperLimit.ToString("yyyy-MM-dd") + "')"
                     }, token);
 
                     token = segment.ContinuationToken;
@@ -170,11 +166,10 @@ namespace ZeroMegaAPI.Repositories
                                  in segment
                                  select new ThingPosition()
                                  {
-                                     ThingID = thing.PartitionKey,
-                                     EventID = Guid.Parse(thing.RowKey),
+                                     IDThing = thing.id_thing,
+                                     DateTimeEvent = thing.datetime_event,
                                      Latitude = thing.latitude,
                                      Longitude = thing.longitude,
-                                     TimeStamp = DateTime.Parse(thing.Timestamp.ToString())
                                  };
                     thingsPositions.AddRange(result);
                 }

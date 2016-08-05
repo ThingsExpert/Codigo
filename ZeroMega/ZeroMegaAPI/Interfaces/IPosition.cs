@@ -9,7 +9,7 @@ namespace ZeroMegaAPI.Interfaces
 {
     interface IPosition
     {
-        Task<ThingPosition> GetThingPosition(int accountId, string thingId, Guid eventId);
+        Task<ThingPosition> GetThingPosition(int accountId, string thingId, string datetime);
 
         Task<IEnumerable<ThingPosition>> GetThingPositions(int accountId, string thingId);
 
