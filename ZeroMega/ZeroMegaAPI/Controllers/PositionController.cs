@@ -19,6 +19,7 @@ namespace ZeroMegaAPI.Controllers
         private PositionRepository _repository = new PositionRepository();
 
         //api/Position/
+        [Route("api/Position")]
         public async Task<IEnumerable<ThingPosition>> Get()
         {
             var user = getUPN();
@@ -28,6 +29,7 @@ namespace ZeroMegaAPI.Controllers
         }
 
         //api/Position/thingId/
+        [Route("api/Position/{thingId}")]
         public async Task<IEnumerable<ThingPosition>> Get(string thingId)
         {
             var user = getUPN();
@@ -36,32 +38,32 @@ namespace ZeroMegaAPI.Controllers
             return await _repository.GetThingPositions(_account, thingId);
         }
 
-        //api/Position/thingId/datetime
-        public async Task<ThingPosition> Get(string thingId, string datetime)
-        {
-            var user = getUPN();
-            _account = GetAccountId(user);
+        ////api/Position/thingId/datetime
+        //public async Task<ThingPosition> Get(string thingId, string datetime)
+        //{
+        //    var user = getUPN();
+        //    _account = GetAccountId(user);
 
-            return await _repository.GetThingPosition(_account, thingId, datetime);
-        }
+        //    return await _repository.GetThingPosition(_account, thingId, datetime);
+        //}
 
-        //api/Position/thingId?lowerLimit=yyyy-MM-dd
-        public async Task<IEnumerable<ThingPosition>> Get(string thingId, DateTime lowerLimit)
-        {
-            var user = getUPN();
-            _account = GetAccountId(user);
+        ////api/Position/thingId?lowerLimit=yyyy-MM-dd
+        //public async Task<IEnumerable<ThingPosition>> Get(string thingId, DateTime lowerLimit)
+        //{
+        //    var user = getUPN();
+        //    _account = GetAccountId(user);
 
-            return await _repository.GetThingPositions(_account, thingId, lowerLimit);
-        }
+        //    return await _repository.GetThingPositions(_account, thingId, lowerLimit);
+        //}
 
-        //api/Position/thingId?lowerLimit=yyyy-MM-dd&upperLimit=yyyy-MM-dd
-        public async Task<IEnumerable<ThingPosition>> Get(string thingId, DateTime lowerLimit, DateTime upperLimit)
-        {
-            var user = getUPN();
-            _account = GetAccountId(user);
+        ////api/Position/thingId?lowerLimit=yyyy-MM-dd&upperLimit=yyyy-MM-dd
+        //public async Task<IEnumerable<ThingPosition>> Get(string thingId, DateTime lowerLimit, DateTime upperLimit)
+        //{
+        //    var user = getUPN();
+        //    _account = GetAccountId(user);
 
-            return await _repository.GetThingPositions(_account, thingId, lowerLimit, upperLimit);
-        }
+        //    return await _repository.GetThingPositions(_account, thingId, lowerLimit, upperLimit);
+        //}
 
 
         #region Identity
