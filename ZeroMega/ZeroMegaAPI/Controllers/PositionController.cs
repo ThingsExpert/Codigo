@@ -13,31 +13,66 @@ using ZeroMegaAPI.Repositories;
 namespace ZeroMegaAPI.Controllers
 {
     [Authorize]
-    public class ThingsController : ApiController
+    public class PositionController : ApiController
     {
         private int _account;
         private PositionRepository _repository = new PositionRepository();
 
-        public ThingsController()
+        //api/Position/
+        public async Task<IEnumerable<ThingPosition>> Get()
         {
-            
+            var user = getUPN();
+            _account = GetAccountId(user);
 
+            return await _repository.GetAllThingsPositions(_account); ;
         }
 
-        public async Task<IEnumerable<ThingPosition>> Get()
+        //api/Position/thingId/
+        public async Task<IEnumerable<ThingPosition>> Get(string thingId)
+        {
+            var user = getUPN();
+            _account = GetAccountId(user);
+
+            return await _repository.GetThingPositions(_account, thingId);
+        }
+
+        //api/Position/thingId/eventId
+        public async Task<ThingPosition> Get(string thingId, Guid eventId)
+        {
+            var user = getUPN();
+            _account = GetAccountId(user);
+
+            return await _repository.GetThingPosition(_account, thingId, eventId);
+        }
+
+        //api/Position/thingId?lowerLimit=yyyy-MM-dd
+        public async Task<IEnumerable<ThingPosition>> Get(string thingId, DateTime lowerLimit)
+        {
+            var user = getUPN();
+            _account = GetAccountId(user);
+
+            return await _repository.GetThingPositions(_account, thingId, lowerLimit);
+        }
+
+        //api/Position/thingId?lowerLimit=yyyy-MM-dd&upperLimit=yyyy-MM-dd
+        public async Task<IEnumerable<ThingPosition>> Get(string thingId, DateTime lowerLimit, DateTime upperLimit)
+        {
+            var user = getUPN();
+            _account = GetAccountId(user);
+
+            return await _repository.GetThingPositions(_account, thingId, lowerLimit, upperLimit);
+        }
+
+
+        #region Identity
+
+        private string getUPN()
         {
             var identity = (ClaimsIdentity)User.Identity;
             IEnumerable<Claim> claims = identity.Claims;
             var user = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Name).Value;
-
-            _account = GetAccountId(user);
-
-            var data = await _repository.GetAllThingsPositions(_account);
-
-            return data;
+            return user;
         }
-
-        string extensionName = "extension_091c133eb3934bf9900259a2814b1cad_AccountNumber";
 
         private int GetAccountId(string UserPrincipalName)
         {
@@ -77,7 +112,7 @@ namespace ZeroMegaAPI.Controllers
                 if (retrievedUser != null && retrievedUser.ObjectId != null)
                 {
                     IReadOnlyDictionary<string, object> extendedProperties = retrievedUser.GetExtendedProperties();
-                    value = extendedProperties[extensionName];
+                    value = extendedProperties[Constants.extensionAccountNumber];
                 }
             }
             catch (Exception)
@@ -87,5 +122,8 @@ namespace ZeroMegaAPI.Controllers
 
             return int.Parse(value.ToString());
         }
+
+        #endregion
+
     }
 }

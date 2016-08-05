@@ -25,5 +25,6 @@ namespace ZeroMegaAPI
         public const string ClientIdForUserAuthn = "66133929-66a4-4edc-aaee-13b04b03207d";
         public const string AuthString = "https://login.windows.net/" + TenantName;
         public const string ResourceUrl = "https://graph.windows.net";
+        public const string extensionAccountNumber = "extension_091c133eb3934bf9900259a2814b1cad_AccountNumber";
     }
 }

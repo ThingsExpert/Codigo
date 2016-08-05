@@ -11,8 +11,7 @@ using ZeroMegaAPI.Models;
 
 namespace ZeroMegaAPI.Repositories
 {
-    //TODO: Implements IPosition
-    public class PositionRepository
+    public class PositionRepository:IPosition
     {
         CloudTable _table = null;
 
@@ -26,49 +25,22 @@ namespace ZeroMegaAPI.Repositories
 
             // Create a table client for interacting with the table service 
             _table = tableClient.GetTableReference("xDRTable");
-
-            //try
-            //{
-            //    if (await _table.CreateIfNotExistsAsync())
-            //    {
-            //    }
-            //    else
-            //    {
-            //    }
-            //}
         }
 
 
         public async Task<IEnumerable<ThingPosition>> GetAllThingsPositions(int accountId)
         {
-            //TableOperation retrieveOperation = TableOperation.Retrieve<ThingEntity>("8000123456789012345", "3E136D80-7096-40C7-8C51-B1C203F97D74");
-            //TableResult result = _table.ExecuteAsync(retrieveOperation).Result;
-            //ThingEntity thing = result.Result as ThingEntity;
-
-
-
-
             var thingsPositions = new List<ThingPosition>();
-
-            //TableQuery<ThingEntity> partitionScanQuery = new TableQuery<ThingEntity>().Where
-            //    (TableQuery.GenerateFilterCondition("account", QueryComparisons.Equal, accountId));
-
-            TableQuery<ThingEntity> partitionScanQuery = new TableQuery<ThingEntity>().Where
-    (TableQuery.GenerateFilterCondition("account", QueryComparisons.Equal, accountId.ToString()));
-
             TableContinuationToken token = null;
-            // Page through the results
-
             try
             {
                 do
                 {
                     TableQuerySegment<ThingEntity> segment = await _table.ExecuteQuerySegmentedAsync(new TableQuery<ThingEntity>()
                     {
-                        FilterString = "account eq 2"
+                        FilterString = "account eq " + accountId
                     }, token);
 
-                    //TableQuerySegment<ThingEntity> segment = await _table.ExecuteQuerySegmentedAsync(partitionScanQuery, token);
                     token = segment.ContinuationToken;
                     var result = from thing
                                  in segment
@@ -86,32 +58,134 @@ namespace ZeroMegaAPI.Repositories
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
 
             return thingsPositions;
-
         }
 
-        public ThingPosition GetThingPosition(string thingId, string accountId, Guid eventId)
+        public async Task<ThingPosition> GetThingPosition(int accountId, string thingId, Guid eventId)
         {
-            throw new NotImplementedException();
+            TableOperation retrieveOperation = TableOperation.Retrieve<ThingEntity>(thingId, eventId.ToString().ToUpper());
+            TableResult result = await _table.ExecuteAsync(retrieveOperation);
+            ThingEntity thing = result.Result as ThingEntity;
+
+            return new ThingPosition()
+            {
+                ThingID = thing.PartitionKey,
+                EventID = Guid.Parse(thing.RowKey),
+                Latitude = thing.latitude,
+                Longitude = thing.longitude,
+                TimeStamp = DateTime.Parse(thing.Timestamp.ToString())
+            };
         }
 
-        public IEnumerable<ThingPosition> GetThingPositions(string accountId, string thingId)
+        public async Task<IEnumerable<ThingPosition>> GetThingPositions(int accountId, string thingId)
         {
-            throw new NotImplementedException();
+            var thingsPositions = new List<ThingPosition>();
+            TableContinuationToken token = null;
+            try
+            {
+                do
+                {
+                    TableQuerySegment<ThingEntity> segment = await _table.ExecuteQuerySegmentedAsync(new TableQuery<ThingEntity>()
+                    {
+                        FilterString = "account eq " + accountId + " and id_thing eq '" + thingId + "'"
+                    }, token);
+
+                    token = segment.ContinuationToken;
+                    var result = from thing
+                                 in segment
+                                 select new ThingPosition()
+                                 {
+                                     ThingID = thing.PartitionKey,
+                                     EventID = Guid.Parse(thing.RowKey),
+                                     Latitude = thing.latitude,
+                                     Longitude = thing.longitude,
+                                     TimeStamp = DateTime.Parse(thing.Timestamp.ToString())
+                                 };
+                    thingsPositions.AddRange(result);
+                }
+                while (token != null);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return thingsPositions;
         }
 
-        public IEnumerable<ThingPosition> GetThingPositions(string accountId, string thingId, DateTime lowerLimit)
+        public async Task<IEnumerable<ThingPosition>> GetThingPositions(int accountId, string thingId, DateTime lowerLimit)
         {
-            throw new NotImplementedException();
+            var thingsPositions = new List<ThingPosition>();
+            TableContinuationToken token = null;
+            try
+            {
+                do
+                {
+                    TableQuerySegment<ThingEntity> segment = await _table.ExecuteQuerySegmentedAsync(new TableQuery<ThingEntity>()
+                    {
+                        FilterString = "(account eq " + accountId + ") and (id_thing eq '" + thingId + "') and (Timestamp ge datetime'" + lowerLimit.ToString("yyyy-MM-dd") + "')"
+                    }, token);
+
+                    token = segment.ContinuationToken;
+                    var result = from thing
+                                 in segment
+                                 select new ThingPosition()
+                                 {
+                                     ThingID = thing.PartitionKey,
+                                     EventID = Guid.Parse(thing.RowKey),
+                                     Latitude = thing.latitude,
+                                     Longitude = thing.longitude,
+                                     TimeStamp = DateTime.Parse(thing.Timestamp.ToString())
+                                 };
+                    thingsPositions.AddRange(result);
+                }
+                while (token != null);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return thingsPositions;
         }
 
-        public IEnumerable<ThingPosition> GetThingPositions(string accountId, string thingId, DateTime lowerLimit, DateTime upperLimit)
+        public async Task<IEnumerable<ThingPosition>> GetThingPositions(int accountId, string thingId, DateTime lowerLimit, DateTime upperLimit)
         {
-            throw new NotImplementedException();
+            var thingsPositions = new List<ThingPosition>();
+            TableContinuationToken token = null;
+            try
+            {
+                do
+                {
+                    TableQuerySegment<ThingEntity> segment = await _table.ExecuteQuerySegmentedAsync(new TableQuery<ThingEntity>()
+                    {
+                        FilterString = "(account eq " + accountId + ") and (id_thing eq '" + thingId + "') and (Timestamp ge datetime'" + lowerLimit.ToString("yyyy-MM-dd") + "') and (Timestamp le datetime'" + upperLimit.ToString("yyyy-MM-dd") + "')"
+                    }, token);
+
+                    token = segment.ContinuationToken;
+                    var result = from thing
+                                 in segment
+                                 select new ThingPosition()
+                                 {
+                                     ThingID = thing.PartitionKey,
+                                     EventID = Guid.Parse(thing.RowKey),
+                                     Latitude = thing.latitude,
+                                     Longitude = thing.longitude,
+                                     TimeStamp = DateTime.Parse(thing.Timestamp.ToString())
+                                 };
+                    thingsPositions.AddRange(result);
+                }
+                while (token != null);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return thingsPositions;
         }
     }
 }
