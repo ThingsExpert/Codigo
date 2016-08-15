@@ -192,6 +192,7 @@ namespace GraphConsoleApp
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nCompleted. Press Any Key to Exit.");
             Console.ReadKey();
+
         }
     }
 }
