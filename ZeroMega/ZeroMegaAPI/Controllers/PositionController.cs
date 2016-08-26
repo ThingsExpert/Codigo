@@ -25,20 +25,21 @@ namespace ZeroMegaAPI.Controllers
             var user = getUPN();
             _account = GetAccountId(user);
 
-            return await _repository.GetAllThingsPositions(_account); ;
+            return await _repository.GetAllThingsPositions(_account);
         }
 
-        //api/Position/thingId/
-        [Route("api/Position/{thingId}")]
-        public async Task<IEnumerable<ThingPosition>> Get(string thingId)
-        {
-            var user = getUPN();
-            _account = GetAccountId(user);
+        ////api/Position/thingId/
+        //[Route("api/Position/{thingId}")]
+        //public async Task<IEnumerable<ThingPosition>> Get(string thingId)
+        //{
+        //    var user = getUPN();
+        //    _account = GetAccountId(user);
 
-            return await _repository.GetThingPositions(_account, thingId);
-        }
+        //    return await _repository.GetThingPositions(_account, thingId);
+        //}
 
         ////api/Position/thingId/datetime
+        //[Route("api/Position/{thingId}/{datetime}")]
         //public async Task<ThingPosition> Get(string thingId, string datetime)
         //{
         //    var user = getUPN();

@@ -12,8 +12,9 @@ namespace ZeroMegaAPI.Models
 
         public DateTime DateTimeEvent { get; set; }
 
-        public long Latitude { get; set; }
+        public string Latitude { get; set; }
 
-        public long Longitude { get; set; }
+        public string Longitude { get; set; }
+
     }
 }

@@ -24,9 +24,19 @@ namespace ZeroMegaAPI.Models
         public DateTime datetime_event { get; set; }
 
         public string account { get; set; }
+    
+        public string date_event { get; set; }
 
-        public long latitude { get; set; }
+        public string cgi { get; set; }
 
-        public long longitude { get; set; }
+        public string latitude { get; set; }
+
+        public string longitude { get; set; }
+
+        public string numa { get; set; }
+
+        public string numb { get; set; }
+
+        public string time_event { get; set; }
     }
 }
