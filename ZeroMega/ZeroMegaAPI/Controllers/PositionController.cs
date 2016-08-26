@@ -28,8 +28,7 @@ namespace ZeroMegaAPI.Controllers
             return await _repository.GetAllThingsPositions(_account);
         }
 
-
-        //api/Position/thingId/
+        ////api/Position/thingId/
         //[Route("api/Position/{thingId}")]
         //public async Task<IEnumerable<ThingPosition>> Get(string thingId)
         //{
@@ -40,6 +39,7 @@ namespace ZeroMegaAPI.Controllers
         //}
 
         ////api/Position/thingId/datetime
+        //[Route("api/Position/{thingId}/{datetime}")]
         //public async Task<ThingPosition> Get(string thingId, string datetime)
         //{
         //    var user = getUPN();
