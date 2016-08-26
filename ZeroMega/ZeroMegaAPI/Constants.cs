@@ -18,13 +18,12 @@ namespace ZeroMegaAPI
 {
     internal class Constants
     {
-        public const string TenantName = "targino.onMicrosoft.com";
-        public const string TenantId = "c504a843-931f-477a-9b4d-010218a8a9c6";
-        public const string ClientId = "091c133e-b393-4bf9-9002-59a2814b1cad";
-        public const string ClientSecret = "b7bBZMk8B3F0WYj4u7SGOzVyX4g4EgtSRk18k99fjns=";
-        public const string ClientIdForUserAuthn = "66133929-66a4-4edc-aaee-13b04b03207d";
+        public const string TenantName = "ip101cloud.onmicrosoft.com";
+        public const string TenantId = "15a1913a-d95c-47d8-aaf4-6f9d77cfd1f1";
+        public const string ClientId = "46182689-17f0-4b6d-96b3-5d2c73ce50e5";
+        public const string ClientSecret = "BQnZF81bQNk1MAi3JZpIM/UXyJJWSVZQ2M0Ifeg8QZs=";
         public const string AuthString = "https://login.windows.net/" + TenantName;
         public const string ResourceUrl = "https://graph.windows.net";
-        public const string extensionAccountNumber = "extension_091c133eb3934bf9900259a2814b1cad_AccountNumber";
+        public const string extensionAccountNumber = "extension_4618268917f04b6d96b35d2c73ce50e5_AccountNumber";
     }
 }

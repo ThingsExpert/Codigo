@@ -22,7 +22,6 @@ namespace GraphConsoleApp
         public const string TenantId = "15a1913a-d95c-47d8-aaf4-6f9d77cfd1f1";
         public const string ClientId = "46182689-17f0-4b6d-96b3-5d2c73ce50e5";
         public const string ClientSecret = "BQnZF81bQNk1MAi3JZpIM/UXyJJWSVZQ2M0Ifeg8QZs=";
-        //public const string ClientIdForUserAuthn = "66133929-66a4-4edc-aaee-13b04b03207d";
         public const string AuthString = "https://login.windows.net/" + TenantName;
         public const string ResourceUrl = "https://graph.windows.net";
     }

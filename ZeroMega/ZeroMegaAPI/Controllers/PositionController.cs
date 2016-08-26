@@ -25,8 +25,9 @@ namespace ZeroMegaAPI.Controllers
             var user = getUPN();
             _account = GetAccountId(user);
 
-            return await _repository.GetAllThingsPositions(_account); ;
+            return await _repository.GetAllThingsPositions(_account);
         }
+
 
         //api/Position/thingId/
         //[Route("api/Position/{thingId}")]
