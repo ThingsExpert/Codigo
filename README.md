@@ -20,7 +20,7 @@ There are 3 folders:
 ### Step 1.	Use Azure AD to store the account number as an Extension Property
 1. Create an Application in Azure AD and called it ZeroGraph.
 2. Get the Tenand Name, Tenant ID, Client ID and Client Secret.
-3. Replace your values in Constants.cs file:
+3. Insert your values in Constants.cs file:
 
 ```cs
 public const string TenantName = "<Your Tenant Name>.onmicrosoft.com";
