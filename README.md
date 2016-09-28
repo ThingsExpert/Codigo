@@ -8,7 +8,11 @@ There are 3 folders:
 - **ZeroMega**: The Visual Studio solution with the Zero Mega ASP.NET Web API.
 
 ## Architecture
+### Part 1: Data Insertion 
+![](/Images/architecture_1.png)
 
+### Part 2: Data Query
+![](/Images/architecture_2.png)
 
 ## Running the solution:
 
@@ -21,17 +25,15 @@ There are 3 folders:
 1. Create an Application in Azure AD and called it ZeroGraph.
 2. Get the Tenand Name, Tenant ID, Client ID and Client Secret.
 3. Insert your values in Constants.cs file:
+ ```cs
+ public const string TenantName = "<Your Tenant Name>.onmicrosoft.com";
+ public const string TenantId = "<Your Tenant ID>";
+ public const string ClientId = "<Your Client ID>";
+ public const string ClientSecret = "<Your Client Secret>";
+ public const string AuthString = "https://login.windows.net/" + TenantName;
+ public const string ResourceUrl = "https://graph.windows.net";
 
-```cs
-public const string TenantName = "<Your Tenant Name>.onmicrosoft.com";
-public const string TenantId = "<Your Tenant ID>";
-public const string ClientId = "<Your Client ID>";
-public const string ClientSecret = "<Your Client Secret>";
-public const string AuthString = "https://login.windows.net/" + TenantName;
-public const string ResourceUrl = "https://graph.windows.net";
-
-```
-
+ ```
 4. Open GraphConsoleApp project and Run with F5.
 5. Type and set the desired users’ account.
 
