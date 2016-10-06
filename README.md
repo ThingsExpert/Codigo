@@ -168,3 +168,42 @@ Your Stream Analytics topology should be similar to this one:
 
 <!-- -->
 > [Steve Danielson](https://github.com/steved0x) has wroten an amazing article showing how to to protect a Web API backend with Azure Active Directory and API Management. You can find it here: https://azure.microsoft.com/en-us/documentation/articles/api-management-howto-protect-backend-with-aad/
+
+## Last Words About the API
+
+As you can see in the IPosition interface, you can query the cars (or other things) positions by ThingId, AccountID and DateTime):
+```cs
+    interface IPosition
+    {
+        Task<ThingPosition> GetThingPosition(int accountId, string thingId, string datetime);
+
+        Task<IEnumerable<ThingPosition>> GetThingPositions(int accountId, string thingId);
+
+        Task<IEnumerable<ThingPosition>> GetThingPositions(int accountId, string thingId, DateTime lowerLimit);
+
+        Task<IEnumerable<ThingPosition>> GetThingPositions(int accountId, string thingId, DateTime lowerLimit, DateTime upperLimit);
+
+        Task<IEnumerable<ThingPosition>> GetAllThingsPositions(int accountId);
+    }
+```
+
+Besides it shows AccountID as parameter (related to the cars owner), the user cannot queries others cars which don't belongs to him/her. As soon we protected the API using Azure AD and extended its schema for support the AccountID property, we can do the following: Query AD for the AccountID from the Authenticated User and returns just his/her cars.
+
+```cs
+    public class PositionController : ApiController
+    {
+        private int _account;
+        private PositionRepository _repository = new PositionRepository();
+
+        //api/Position/
+        [Route("api/Position")]
+        public async Task<IEnumerable<ThingPosition>> Get()
+        {
+            var user = getUPN();
+            _account = GetAccountId(user);
+
+            return await _repository.GetAllThingsPositions(_account);
+        }
+	
+     [...]
+```
