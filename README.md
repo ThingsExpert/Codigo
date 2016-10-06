@@ -22,12 +22,13 @@ There are 3 folders:
 ## Running the solution:
 
 ### Prerequisites:
-- Azure Account
-- Azure Active Directory Tenant
-- Microsoft Azure Storage Emulator
+- [Azure Account](https://azure.microsoft.com/en-us/free/)
+- [Azure Active Directory Tenant](https://azure.microsoft.com/en-us/documentation/articles/active-directory-howto-tenant/)
+- [Microsoft Azure Storage Emulator](https://github.com/Azure/azure-content/blob/master/articles/storage/storage-use-emulator.md)
+- [Visual Studio](https://www.visualstudio.com/downloads/)
 
 ### Step 1.	Use Azure AD to store the account number as an Extension Property
-1. Create an Application in Azure AD and called it ZeroGraph.
+1. Create an Web Application in Azure AD and called it ZeroGraph.
 2. Get the Tenand Name, Tenant ID, Client ID and Client Secret.
 3. Open GraphConsoleApp project and  insert your values in [Constants.cs](/ZeroMega/GraphConsoleApp/Constants.cs) file:
  ```cs
