@@ -29,7 +29,7 @@ There are 3 folders:
 ### Step 1.	Use Azure AD to store the account number as an Extension Property
 1. Create an Application in Azure AD and called it ZeroGraph.
 2. Get the Tenand Name, Tenant ID, Client ID and Client Secret.
-3. Insert your values in Constants.cs file:
+3. Open GraphConsoleApp project and  insert your values in [Constants.cs](/ZeroMega/GraphConsoleApp/Constants.cs) file:
  ```cs
  public const string TenantName = "<Your Tenant Name>.onmicrosoft.com";
  public const string TenantId = "<Your Tenant ID>";
@@ -39,7 +39,7 @@ There are 3 folders:
  public const string ResourceUrl = "https://graph.windows.net";
 
  ```
-4. Open GraphConsoleApp project and Run with F5.
+4. Run the project with F5.
 5. Type and set the desired users’ account.
 
 ### Step 2.	Setup the IoT/Data Insertion Enviroment
@@ -55,7 +55,34 @@ There are 3 folders:
   * Input 2: Reference data idthingsrd
   * Output 1: Table xDRTable
   * Output 2: Table xDR2LogsTable
-  * Query: Copy and paste the content of Stream Analytics Scripts\query.txt
+  * Query: Copy and paste the following content: (Also available in [Stream Analytics Scripts\query.txt](/Stream Analytics Scripts\/query.txt):
+  
+```sql
+--Processing
+WITH ProcessedInput AS (
+    SELECT
+        CASE
+            WHEN LEN(id_thing) = 17 THEN CONCAT('90', id_thing)
+            WHEN LEN(id_thing) = 15 THEN CONCAT('8000', id_thing)
+            ELSE CONCAT('X', id_thing)
+        END AS id_thing, System.TimeStamp AS datetime_event, lat AS latitude, long AS longitude, dts AS date_event, tts AS time_event, anum AS numA, bnum AS numB, cgi AS CGI        
+    FROM
+        Labcom01in
+)
+
+--Output: xDR
+SELECT
+    PI.id_thing, PI.datetime_event, Ref.account, PI.latitude, PI.longitude, PI.date_event, PI.time_event, PI.numA, PI.numB, PI.CGI
+INTO
+    xDRout
+FROM
+    ProcessedInput PI
+JOIN
+    Idthingrdin Ref
+ON
+    PI.id_thing = Ref.id_thing
+
+```
 
 ### Step 3.	Setup the Data Query Enviroment
 1.	
