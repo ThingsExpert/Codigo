@@ -83,6 +83,10 @@ ON
     PI.id_thing = Ref.id_thing
 
 ```
+> IMEI, IMSI, NumberA, NumberB and CGI are tipically values extracted from a GSM call.
+
+<!-- -->
+> Tipically, IMEI numbers has 17 digits, while IMSI 15 digits. The partner responsible for the design of the solution decided to make a standard 19 digits unique identifier, using the prefix 90 in case an incoming IMEI message, or 8000 if it is an IMSI one. Besides that, for log purpuses, if is not an IMEI or an IMSI case, an X prefix is added.
 
 ### Step 3.	Setup the Data Query Enviroment
 1.	
