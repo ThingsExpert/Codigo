@@ -10,7 +10,7 @@ namespace SASGenerator
 {
     public class Program
     {
-        static string serviceBusConnectionString = "Endpoint=sb://zeromega.servicebus.windows.net/;SharedAccessKeyName=LABCOM-01-SharedAccessKey;SharedAccessKey=kmQ7EezLAxkyKzhhUFSTVJ0bokaVVM6/V+oGRNTQBAs=;EntityPath=zeromega_ehub";
+        static string serviceBusConnectionString = "<INSERT HERE YOUR SERVICE BUS CONNECTION STRING>";
 
         static void Main(string[] args)
         {
