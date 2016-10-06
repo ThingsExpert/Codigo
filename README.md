@@ -1,11 +1,14 @@
 # Zero Mega
 
-Zero Mega is a project from @ThingsExpert implemented in partner with Microsoft. In this repository you can find all solutions and scripts related to the project.
+Zero Mega is a project from [ThingsExpert](https://github.com/ThingsExpert/) implemented in partner with Microsoft. In this repository you can find all solutions and scripts related to the project.
 
 There are 3 folders:
 - **Bash Scripts:** Here are the scripts in charge to send data from Linux Servers to Azure Event Hub.
 - **Stream Analytics Scripts:** Here are the scripts for processing incoming data in Azure Stream Analytics.
 - **ZeroMega**: The Visual Studio solution with the Zero Mega ASP.NET Web API.
+  - GraphConsoleApp: Console Application in charge of set extended properties in Azure AD
+  - SASGenerator: Console Application in order to get SAS tokens for isolated tests.
+  - ZeroMegaAPI: Main project from this solution, which is an ASP.NET Web API.
 
 ## Architecture
 ### Part 1: Data Insertion 
@@ -99,4 +102,4 @@ Your Stream Analytics topology should be similar to this one:
 
 
 ### Step 3.	Setup the Data Query Enviroment
-1.	
+> [Steve Danielson](https://github.com/steved0x) has wroten an amazing article showing how to to protect a Web API backend with Azure Active Directory and API Management. You can find it here: https://azure.microsoft.com/en-us/documentation/articles/api-management-howto-protect-backend-with-aad/
