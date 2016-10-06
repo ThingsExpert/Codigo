@@ -102,4 +102,13 @@ Your Stream Analytics topology should be similar to this one:
 
 
 ### Step 3.	Setup the Data Query Enviroment
+> The main goal with the project is to make a commercial usage for the API straight to developers. To achieve that, we decided to use Azure API Management to provide an easy interface to control the usage and analytics info. This step is optional if you wouldn't like to add this commercial/control layer.
+
+<!-- -->
+> Basically, you need to: 
+- Create an API Management environment
+- Use your Azure AD tenant as an OAuth authorization server
+- Add a reference to Azure API App using Swagger doc file
+
+<!-- -->
 > [Steve Danielson](https://github.com/steved0x) has wroten an amazing article showing how to to protect a Web API backend with Azure Active Directory and API Management. You can find it here: https://azure.microsoft.com/en-us/documentation/articles/api-management-howto-protect-backend-with-aad/
