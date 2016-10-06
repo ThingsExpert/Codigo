@@ -102,4 +102,34 @@ Your Stream Analytics topology should be similar to this one:
 
 
 ### Step 3.	Setup the Data Query Enviroment
+1. Create an Web Application in Azure AD and called it ZeroAPI.
+2. Set the permission to the application could read the directory.
+3. Get the Tenand Name, APP ID URI, Client ID and Client Secret.
+4. Open ZeroMega solution and ZeroMegaAPI project. Inside the [Web.config](/ZeroMega/ZeroMegaAPI/Web.config) file, replace the following values:
+
+ ```xml
+  <appSettings>
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <!--Main App Settings:-->
+    <add key="ida:Tenant" value="<Your Tenant Name>.onmicrosoft.com"; />
+    <add key="ida:Audience" value="<Your APP ID URI>" />
+    <add key="ida:ClientID" value="<Your Client ID>" />
+    <add key="ida:Password" value=""<Your Client Secret>" />
+    <add key="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zeromegastorage;AccountKey=Ego3J4kZgmMTq4e0svT/+eH0xkt8DDzcQZ0H5gkHnWbvGSKl0STV+k8dZkdQBCLnbEWsP4XTDAwAvOsztsI1Tg==" />
+  </appSettings>
+ ```
+
+5. Copy the ZeroGraph [constants settings previously setup](/ZeroMega/GraphConsoleApp/Constants.cs) for the file [Constants.cs]() in ZeroMegaAPI project.
+> We decided use a constants file instead of using Web.config file in order to separate the roles for quering Active Directory and for the Web API.
+ 
+> The main goal with the project is to make a commercial usage for the API straight to developers. To achieve that, we decided to use Azure API Management to provide an easy interface to control the usage and analytics info. This step is optional if you wouldn't like to add this commercial/control layer.
+
+<!-- -->
+> Basically, you need to: 
+- Create an API Management environment
+- Use your Azure AD tenant as an OAuth authorization server
+- Add a reference to Azure API App using Swagger doc file
+
+<!-- -->
 > [Steve Danielson](https://github.com/steved0x) has wroten an amazing article showing how to to protect a Web API backend with Azure Active Directory and API Management. You can find it here: https://azure.microsoft.com/en-us/documentation/articles/api-management-howto-protect-backend-with-aad/
