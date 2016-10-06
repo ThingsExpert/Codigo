@@ -105,7 +105,8 @@ Your Stream Analytics topology should be similar to this one:
 1. Create an Web Application in Azure AD and called it ZeroAPI.
 2. Set the permission to the application could read the directory.
 3. Get the Tenand Name, APP ID URI, Client ID and Client Secret.
-4. Open ZeroMega solution and ZeroMegaAPI project. Inside the [Web.config](/ZeroMega/ZeroMegaAPI/Web.config) file, replace the following values:
+4. Create an general purpuse storage account in Azure. Get the connection string.
+5. Open ZeroMega solution and ZeroMegaAPI project. Inside the [Web.config](/ZeroMega/ZeroMegaAPI/Web.config) file, replace the following values:
 
  ```xml
   <appSettings>
@@ -115,13 +116,15 @@ Your Stream Analytics topology should be similar to this one:
     <add key="ida:Tenant" value="<Your Tenant Name>.onmicrosoft.com"; />
     <add key="ida:Audience" value="<Your APP ID URI>" />
     <add key="ida:ClientID" value="<Your Client ID>" />
-    <add key="ida:Password" value=""<Your Client Secret>" />
-    <add key="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zeromegastorage;AccountKey=Ego3J4kZgmMTq4e0svT/+eH0xkt8DDzcQZ0H5gkHnWbvGSKl0STV+k8dZkdQBCLnbEWsP4XTDAwAvOsztsI1Tg==" />
+    <add key="ida:Password" value="<Your Client Secret>" />
+    <add key="StorageConnectionString" value="<Your Storage Connection String>" />
   </appSettings>
  ```
 
-5. Copy the ZeroGraph [constants settings previously setup](/ZeroMega/GraphConsoleApp/Constants.cs) for the file [Constants.cs](/ZeroMega/ZeroMegaAPI/Constants.cs) in ZeroMegaAPI project.
+6. Copy the ZeroGraph [constants settings previously setup](/ZeroMega/GraphConsoleApp/Constants.cs) for the file [Constants.cs](/ZeroMega/ZeroMegaAPI/Constants.cs) in ZeroMegaAPI project.
 > We decided use a constants file instead of using Web.config file in order to separate the roles for quering Active Directory and for the Web API.
+7. Run the project with F5 and check if everything is working fine.
+8. Publish the Web API as an Azure Web App and exposes it for your web services/partners.
  
 > The main goal with the project is to make a commercial usage for the API straight to developers. To achieve that, we decided to use Azure API Management to provide an easy interface to control the usage and analytics info. This step is optional if you wouldn't like to add this commercial/control layer.
 
