@@ -120,7 +120,7 @@ Your Stream Analytics topology should be similar to this one:
   </appSettings>
  ```
 
-5. Copy the ZeroGraph [constants settings previously setup](/ZeroMega/GraphConsoleApp/Constants.cs) for the file [Constants.cs]() in ZeroMegaAPI project.
+5. Copy the ZeroGraph [constants settings previously setup](/ZeroMega/GraphConsoleApp/Constants.cs) for the file [Constants.cs](/ZeroMega/ZeroMegaAPI/Constants.cs) in ZeroMegaAPI project.
 > We decided use a constants file instead of using Web.config file in order to separate the roles for quering Active Directory and for the Web API.
  
 > The main goal with the project is to make a commercial usage for the API straight to developers. To achieve that, we decided to use Azure API Management to provide an easy interface to control the usage and analytics info. This step is optional if you wouldn't like to add this commercial/control layer.
