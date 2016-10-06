@@ -9,10 +9,15 @@ There are 3 folders:
 
 ## Architecture
 ### Part 1: Data Insertion 
-![](/Images/architecture_1.png)
+<p align="center">
+ <img src="/Images/architecture_1.png" width="700">
+</p>
 
 ### Part 2: Data Query
-![](/Images/architecture_2.png)
+
+<p align="center">
+ <img src="/Images/architecture_2.png" width="500">
+</p>
 
 ## Running the solution:
 
