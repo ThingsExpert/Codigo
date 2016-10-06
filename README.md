@@ -57,6 +57,7 @@ There are 3 folders:
   * Output 2: Table xDR2LogsTable
   * Query: Copy and paste the following content: (Also available in [Stream Analytics Scripts\query.txt](/Stream Analytics Scripts\/query.txt):
 
+<!-- -->
 
  ```sql
  --Processing
@@ -92,7 +93,7 @@ There are 3 folders:
 
 Your Stream Analytics topology should be similar to this one:
 <p align="center">
- <img src="/Images/stream_analytics_topology.png" width="400">
+ <img src="/Images/stream_analytics_topology.png" width="500">
 </p>
 
 
