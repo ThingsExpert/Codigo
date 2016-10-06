@@ -9,14 +9,46 @@ There are 3 folders:
   - GraphConsoleApp: Console Application in charge of set extended properties in Azure AD
   - SASGenerator: Console Application in order to get SAS tokens for isolated tests.
   - ZeroMegaAPI: Main project from this solution, which is an ASP.NET Web API.
+  
+## Background
+
+Things Expert wanted to create a car tracking solution that was more efficient than the ones already on the market. The target market is car rental companies, as they usually implement car tracking devices to obtain significant discounts from insurance companies. However, existing solutions on the market are based on installing GPS devices on cars, which has two drawbacks: high battery consumption and high usage of data connection (incurring mobile operator costs).  Given this scenario, the project team established 4 barriers to be overcome:
+-	Battery consumption
+-	High data usage
+-	Need of scalability to support an initial estimate of 200,000 cars
+-	Message Integrity, meaning none of the messages sent to the cloud would be lost
+
+In order to achieve that the following architecture for the solution was suggested.
 
 ## Architecture
 ### Part 1: Data Insertion 
+
+Things Expert had already developed a framework encompassing mobile infrastructure and messaging through their network, but it was not connected to the Cloud. Once we identified their server (Signaling Central) already could send HTTP messages to any destination, we started to draw the cloud connection part of the solution.
+
+A typical message sent from cars is pretty much like this:
+
+```json
+{
+  "anum":"21960101935",
+	"bnum":"008102980000000180014",
+  "cgi":"724030041128843",
+  "id_thing":"724180050340589",
+	"lat":"-23.5813055556",
+	"long":"-46.62425"
+}
+```
+
+The final archicture for the insertion part is showed right beyond:
+
 <p align="center">
  <img src="/Images/architecture_1.png" width="700">
 </p>
 
+
+
 ### Part 2: Data Query
+
+For the data query part, the final structure is the following one. We discuss it along this article.
 
 <p align="center">
  <img src="/Images/architecture_2.png" width="500">
