@@ -56,37 +56,45 @@ There are 3 folders:
   * Output 1: Table xDRTable
   * Output 2: Table xDR2LogsTable
   * Query: Copy and paste the following content: (Also available in [Stream Analytics Scripts\query.txt](/Stream Analytics Scripts\/query.txt):
-  
-```sql
---Processing
-WITH ProcessedInput AS (
-    SELECT
-        CASE
-            WHEN LEN(id_thing) = 17 THEN CONCAT('90', id_thing)
-            WHEN LEN(id_thing) = 15 THEN CONCAT('8000', id_thing)
-            ELSE CONCAT('X', id_thing)
-        END AS id_thing, System.TimeStamp AS datetime_event, lat AS latitude, long AS longitude, dts AS date_event, tts AS time_event, anum AS numA, bnum AS numB, cgi AS CGI        
-    FROM
-        Labcom01in
-)
 
---Output: xDR
-SELECT
-    PI.id_thing, PI.datetime_event, Ref.account, PI.latitude, PI.longitude, PI.date_event, PI.time_event, PI.numA, PI.numB, PI.CGI
-INTO
-    xDRout
-FROM
-    ProcessedInput PI
-JOIN
-    Idthingrdin Ref
-ON
-    PI.id_thing = Ref.id_thing
 
-```
+ ```sql
+ --Processing
+ WITH ProcessedInput AS (
+     SELECT
+         CASE
+             WHEN LEN(id_thing) = 17 THEN CONCAT('90', id_thing)
+             WHEN LEN(id_thing) = 15 THEN CONCAT('8000', id_thing)
+             ELSE CONCAT('X', id_thing)
+         END AS id_thing, System.TimeStamp AS datetime_event, lat AS latitude, long AS longitude, dts AS date_event, tts AS time_event, anum AS numA, bnum AS numB, cgi AS CGI        
+     FROM
+         Labcom01in
+ )
+
+ --Output: xDR
+ SELECT
+     PI.id_thing, PI.datetime_event, Ref.account, PI.latitude, PI.longitude, PI.date_event, PI.time_event, PI.numA, PI.numB, PI.CGI
+ INTO
+     xDRout
+ FROM
+     ProcessedInput PI
+ JOIN
+     Idthingrdin Ref
+ ON
+     PI.id_thing = Ref.id_thing
+
+ ```
+
 > IMEI, IMSI, NumberA, NumberB and CGI are tipically values extracted from a GSM call.
 
 <!-- -->
 > Tipically, IMEI numbers has 17 digits, while IMSI 15 digits. The partner responsible for the design of the solution decided to make a standard 19 digits unique identifier, using the prefix 90 in case an incoming IMEI message, or 8000 if it is an IMSI one. Besides that, for log purpuses, if is not an IMEI or an IMSI case, an X prefix is added.
+
+Your Stream Analytics topology should be similar to this one:
+<p align="center">
+ <img src="/Images/stream_analytics_topology.png" width="400">
+</p>
+
 
 ### Step 3.	Setup the Data Query Enviroment
 1.	
